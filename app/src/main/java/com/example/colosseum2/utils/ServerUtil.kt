@@ -1,6 +1,7 @@
 package com.example.colosseum2.utils
 
 import okhttp3.FormBody
+import okhttp3.Request
 
 class ServerUtil() {
 //    서버 연결 전담
@@ -22,6 +23,11 @@ class ServerUtil() {
                 .add("password", pw)
                 .build()
 
+//        어디, 어떻게, 무엇을 들고갈지
+        val request = Request.Builder()
+                .url(urlString)
+                .post(formData)
+                .build()
     }
 
 }
