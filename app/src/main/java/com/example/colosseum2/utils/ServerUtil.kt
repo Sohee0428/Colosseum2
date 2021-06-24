@@ -2,6 +2,7 @@ package com.example.colosseum2.utils
 
 import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class ServerUtil() {
@@ -46,7 +47,9 @@ class ServerUtil() {
 
                     val bodyString = response.body!!.string()
 
-                    Log.d("응답 본문", bodyString)
+                    val jsonObj = JSONObject(bodyString)
+
+                    Log.d("응답 본문", jsonObj.toString())
                 }
 
             })
