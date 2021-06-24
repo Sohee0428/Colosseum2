@@ -1,6 +1,8 @@
 package com.example.colosseum2.utils
 
 import okhttp3.FormBody
+import okhttp3.OkHttp
+import okhttp3.OkHttpClient
 import okhttp3.Request
 
 class ServerUtil() {
@@ -28,6 +30,14 @@ class ServerUtil() {
                 .url(urlString)
                 .post(formData)
                 .build()
-    }
 
+//        클라이언트로써의 동작 : Request 요청 => OkHttp  라이브러리 지원
+        val client = OkHttpClient()
+
+//        실제로 서버에 요청 날리기
+        client.newCall(request)
+
+
+    }
 }
+
