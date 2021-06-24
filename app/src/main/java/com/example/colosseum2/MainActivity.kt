@@ -2,6 +2,7 @@ package com.example.colosseum2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.colosseum2.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -27,7 +28,21 @@ class MainActivity : BaseActivity() {
             ServerUtil.postRequestLogin(inputEmail, inputPw, object : ServerUtil.Companion.JsonResponseHandler{
                 override fun onResponse(jsonObj: JSONObject) {
 
-//                    jsonObj : 서버에서 내려준 본문을 JSON 형태로 가공
+//                    jsonObj : 서버에서 내려준 본문을 JSON 형태로 가공 -> 이 내부를 파싱해서 상황에 따른 대응 (예로 토스트 띄우기)
+
+                    val code = jsonObj.getInt("code")
+
+                    if (code == 200) {
+
+                    }
+                    else{
+                        val message = jsonObj.getString("message")
+
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
                 }
 
             })
