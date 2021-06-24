@@ -1,9 +1,8 @@
 package com.example.colosseum2.utils
 
-import okhttp3.FormBody
-import okhttp3.OkHttp
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import android.util.Log
+import okhttp3.*
+import java.io.IOException
 
 class ServerUtil() {
 //    서버 연결 전담
@@ -35,7 +34,20 @@ class ServerUtil() {
         val client = OkHttpClient()
 
 //        실제로 서버에 요청 날리기
-        client.newCall(request)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+//                서버에 연결 자체를 실패한 경우 (서버 마비, 인터넷 단선 등)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+//                로그인 성공 / 실패 (연결 성공 -> 검사 실패) -> 응답이 돌아온 경우
+
+                val bodyString = response.body!!.string()
+
+                Log.d("응답 본문", bodyString)
+            }
+
+        })
 
 
     }
