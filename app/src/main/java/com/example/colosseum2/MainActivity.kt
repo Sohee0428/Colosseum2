@@ -1,5 +1,6 @@
 package com.example.colosseum2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -25,7 +26,7 @@ class MainActivity : BaseActivity() {
             val inputPw = passwordEdt.text.toString()
 
 //            서버에 실제 회원이 맞는지 확인 요청 (Request)
-            ServerUtil.postRequestLogin(inputEmail, inputPw, object : ServerUtil.Companion.JsonResponseHandler{
+            ServerUtil.postRequestLogin(inputEmail, inputPw, object : ServerUtil.Companion.JsonResponseHandler {
                 override fun onResponse(jsonObj: JSONObject) {
 
 //                    jsonObj : 서버에서 내려준 본문을 JSON 형태로 가공 -> 이 내부를 파싱해서 상황에 따른 대응 (예로 토스트 띄우기)
@@ -33,9 +34,9 @@ class MainActivity : BaseActivity() {
                     val code = jsonObj.getInt("code")
 
                     if (code == 200) {
-
-                    }
-                    else{
+//                        로그인 성공 시
+                    } else {
+//                        로그인 실패 시
                         val message = jsonObj.getString("message")
 
                         runOnUiThread {
@@ -46,6 +47,14 @@ class MainActivity : BaseActivity() {
                 }
 
             })
+
+        }
+
+        signUpBtn.setOnClickListener {
+
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+
 
         }
     }
