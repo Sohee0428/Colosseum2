@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.colosseum2.utils.ServerUtil
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.emailEdt
+import kotlinx.android.synthetic.main.activity_sign_up.passwordEdt
+import kotlinx.android.synthetic.main.activity_sign_up.signUpBtn
 import org.json.JSONObject
 
 class SignUpActivity : BaseActivity() {
@@ -48,6 +52,18 @@ class SignUpActivity : BaseActivity() {
 
                 }
 
+
+            })
+        }
+
+        emailcheckBtn.setOnClickListener {
+
+            val inputEmail = emailEdt.text.toString()
+
+            ServerUtil.getRequestDuplCheck("EMAIL",inputEmail, object : ServerUtil.Companion.JsonResponseHandler{
+                override fun onResponse(jsonObj: JSONObject) {
+
+                }
 
             })
         }
