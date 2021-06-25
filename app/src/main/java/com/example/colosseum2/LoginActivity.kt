@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.colosseum2.utils.ContextUtil
 import com.example.colosseum2.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
@@ -35,6 +36,12 @@ class LoginActivity : BaseActivity() {
 
                     if (code == 200) {
 //                        로그인 성공 시
+
+                        val dataObj = jsonObj.getJSONObject("data")
+                        val token = dataObj.getString("token")
+
+                        ContextUtil.setToken(mContext, token)
+
                         val myIntent = Intent(mContext, MainActivity::class.java)
                         startActivity(myIntent)
                         finish()
