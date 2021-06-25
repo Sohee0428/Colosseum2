@@ -32,20 +32,20 @@ class SignUpActivity : BaseActivity() {
                 override fun onResponse(jsonObj: JSONObject) {
                     val code = jsonObj.getInt("code")
 
-                    if(code == 200){
+                    if (code == 200) {
                         val dataObj = jsonObj.getJSONObject("data")
                         val userObj = dataObj.getJSONObject("user")
                         val nickName = userObj.getString("nick_name")
-                        
-                        runOnUiThread{
+
+                        runOnUiThread {
                             Toast.makeText(mContext, "${nickName}님 환영합니다.", Toast.LENGTH_SHORT).show()
                             finish()
                         }
 
-                    }else{
+                    } else {
                         val message = jsonObj.getString("message")
 
-                        runOnUiThread{
+                        runOnUiThread {
                             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -60,9 +60,19 @@ class SignUpActivity : BaseActivity() {
 
             val inputEmail = emailEdt.text.toString()
 
-            ServerUtil.getRequestDuplCheck("EMAIL",inputEmail, object : ServerUtil.Companion.JsonResponseHandler{
+            ServerUtil.getRequestDuplCheck("EMAIL", inputEmail, object : ServerUtil.Companion.JsonResponseHandler {
                 override fun onResponse(jsonObj: JSONObject) {
 
+                    val code = jsonObj.getInt("code")
+
+                    runOnUiThread {
+                        if (code == 200) {
+                            Toast.makeText(mContext, "사용해도 좋습니다.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            val message = jsonObj.getString("message")
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
 
             })
