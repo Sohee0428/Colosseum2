@@ -1,5 +1,6 @@
 package com.example.colosseum2.utils
 
+import android.content.Context
 import android.util.Log
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -120,8 +121,48 @@ class ServerUtil() {
 //            어디로 무엇을 가지고 / url 적으면서 파라미터도 같이 작성 => 보조 도구(Builder)
 
             val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
-            urlBuilder.addEncodedQueryParameter("type", type)
-            urlBuilder.addEncodedQueryParameter("value", value)
+//            urlBuilder.addEncodedQueryParameter("type", type)
+//            urlBuilder.addEncodedQueryParameter("value", value)
+
+            val urlString = urlBuilder.build().toString()
+
+            Log.d("완성된 url", urlString)
+
+            val request = Request.Builder()
+                    .url(urlString)
+                    .get()
+                    .header("X-Http-Token", ContextUtil.getToken(context))
+                    .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback{
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+
+                    val jsonObj = JSONObject(bodyString)
+
+                    Log.d("서버 응답 본문", jsonObj.toString())
+
+                    handler?.onResponse(jsonObj)
+                }
+
+            })
+
+        }
+
+        fun getRequestMainInfo(context: Context, handler: JsonResponseHandler?){
+
+//            어디로 무엇을 가지고 / url 적으면서 파라미터도 같이 작성 => 보조 도구(Builder)
+
+            val urlBuilder = "${BASE_URL}/v2/main_info".toHttpUrlOrNull()!!.newBuilder()
+
+//            urlBuilder.addEncodedQueryParameter("type", type)
+//            urlBuilder.addEncodedQueryParameter("value", value)
 
             val urlString = urlBuilder.build().toString()
 
