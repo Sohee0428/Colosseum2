@@ -15,6 +15,9 @@ class TopicAdapter(val mContext: Context, val resId: Int, mList: List<Topic>) : 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         var tempRow = convertView
+
+//        val row = tempRow?:mInflater.inflate(resId, null)
+
         if(tempRow == null) {
             tempRow = mInflater.inflate(R.layout.topic_list_item, null)
         }
