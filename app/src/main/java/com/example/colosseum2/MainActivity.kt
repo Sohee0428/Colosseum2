@@ -32,9 +32,9 @@ class MainActivity : BaseActivity() {
             override fun onResponse(jsonObj: JSONObject) {
 
                 val dataObj = jsonObj.getJSONObject("data")
-                val topicsArr = dataObj.getJSONObject("topics")
+                val topicsArr = dataObj.getJSONArray("topics")
 
-                for ( index in 0 until topicsArr.length() ) {
+                for (index in 0 until topicsArr.length() ) {
 
                     val topicObj = topicsArr.getJSONObject(index)
                     val topicData = Topic.getTopicDataFromJson(topicObj)
