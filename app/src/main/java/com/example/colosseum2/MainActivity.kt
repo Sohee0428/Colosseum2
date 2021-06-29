@@ -34,9 +34,12 @@ class MainActivity : BaseActivity() {
                 val dataObj = jsonObj.getJSONObject("data")
                 val topicsArr = dataObj.getJSONObject("topics")
 
-                for( index in 0 until topicsArr.length()) {
+                for ( index in 0 until topicsArr.length() ) {
 
+                    val topicObj = topicsArr.getJSONObject(index)
+                    val topicData = Topic.getTopicDataFromJson(topicObj)
 
+                    mTopicList.add(topicData)
                 }
             }
 
