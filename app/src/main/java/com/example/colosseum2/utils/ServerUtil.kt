@@ -121,8 +121,8 @@ class ServerUtil() {
 //            어디로 무엇을 가지고 / url 적으면서 파라미터도 같이 작성 => 보조 도구(Builder)
 
             val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
-//            urlBuilder.addEncodedQueryParameter("type", type)
-//            urlBuilder.addEncodedQueryParameter("value", value)
+            urlBuilder.addEncodedQueryParameter("type", type)
+            urlBuilder.addEncodedQueryParameter("value", value)
 
             val urlString = urlBuilder.build().toString()
 
@@ -131,7 +131,6 @@ class ServerUtil() {
             val request = Request.Builder()
                     .url(urlString)
                     .get()
-                    .header("X-Http-Token", ContextUtil.getToken(context))
                     .build()
 
             val client = OkHttpClient()
@@ -171,6 +170,7 @@ class ServerUtil() {
             val request = Request.Builder()
                     .url(urlString)
                     .get()
+                    .header("X-Http-Token", ContextUtil.getToken(context))
                     .build()
 
             val client = OkHttpClient()
