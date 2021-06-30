@@ -1,8 +1,9 @@
 package com.example.colosseum2.datas
 
 import org.json.JSONObject
+import java.io.Serializable
 
-class Topic {
+class Topic : Serializable{
 
     var id = 0
     var title = ""
