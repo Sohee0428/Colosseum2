@@ -49,6 +49,9 @@ class MainActivity : BaseActivity() {
                     mTopicList.add(topicData)
                 }
 
+                runOnUiThread {
+                    mTopicAdapter.notifyDataSetChanged()
+                }
 
             }
 
