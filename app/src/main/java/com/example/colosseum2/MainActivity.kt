@@ -2,13 +2,17 @@ package com.example.colosseum2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.colosseum2.adapters.TopicAdapter
 import com.example.colosseum2.datas.Topic
 import com.example.colosseum2.utils.ServerUtil
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
     val mTopicList = ArrayList<Topic>()
+
+    lateinit var mTopicAdapter : TopicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,9 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
 
         getTopicListFromServer()
+
+        mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
+        topicListView.adapter = mTopicAdapter
     }
 
     fun getTopicListFromServer(){
@@ -41,7 +48,10 @@ class MainActivity : BaseActivity() {
 
                     mTopicList.add(topicData)
                 }
+
+
             }
+
 
 
         })
