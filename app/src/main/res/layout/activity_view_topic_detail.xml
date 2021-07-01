@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/topicTitleTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="토론 주제 자리"
@@ -39,13 +40,32 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="첫번째 진영"
-                    android:textColor="@color/white"/>
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/firstSideTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="첫번째 진영"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/firstSideVoteTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="22표"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -55,13 +75,29 @@
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="두번째 진영"
-                    android:textColor="@color/white"/>
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/secondSideTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두번째 진영"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"/>
 
 
+                    <TextView
+                        android:id="@+id/secondSideVoteTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12표"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
