@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.colosseum2.datas.Topic
+import com.example.colosseum2.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
+import org.json.JSONObject
 
 class ViewTopicDetailActivity : BaseActivity() {
 
@@ -28,6 +30,16 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         Glide.with(mContext).load(mTopic.imageURL).into(topicImg)
 
+        getTopicDetailFromServer()
+    }
 
+    fun getTopicDetailFromServer() {
+
+        ServerUtil.getRequestTopicDetail(mContext, mTopic.id, object : ServerUtil.Companion.JsonResponseHandler{
+            override fun onResponse(jsonObj: JSONObject) {
+
+            }
+
+        })
     }
 }
