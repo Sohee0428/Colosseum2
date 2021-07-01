@@ -38,6 +38,20 @@ class ViewTopicDetailActivity : BaseActivity() {
         ServerUtil.getRequestTopicDetail(mContext, mTopic.id, object : ServerUtil.Companion.JsonResponseHandler{
             override fun onResponse(jsonObj: JSONObject) {
 
+                val dataObj = jsonObj.getJSONObject("data")
+                val topicObj = dataObj.getJSONObject("topic")
+
+                val topic = Topic.getTopicDataFromJson(topicObj)
+
+                mTopic = topic
+
+                runOnUiThread {
+                    firstSideVoteTxt.text = mTopic.sides[0].title
+                    firstSideVoteTxt.text =  "${mTopic.sides[0].voteCount}표"
+                    secondSideTxt.text = mTopic.sides[1].title
+                    secondSideVoteTxt.text = "${mTopic.sides[1].voteCount}표"
+                }
+
             }
 
         })
