@@ -23,6 +23,15 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         voteFirstSideBtn.setOnClickListener {
 
+            ServerUtil.postRequestVote(mContext, mTopic.sides[0].id, object : ServerUtil.Companion.JsonResponseHandler{
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    getTopicDetailFromServer()
+                }
+
+
+            })
+
         }
     }
 
