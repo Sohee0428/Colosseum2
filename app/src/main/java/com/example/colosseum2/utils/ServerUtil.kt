@@ -202,9 +202,7 @@ class ServerUtil() {
             val urlBuilder = "${BASE_URL}/topic".toHttpUrlOrNull()!!.newBuilder()
             urlBuilder.addEncodedPathSegment(topicId.toString())
 
-
-//            urlBuilder.addEncodedQueryParameter("type", type)
-//            urlBuilder.addEncodedQueryParameter("value", value)
+            urlBuilder.addEncodedQueryParameter("order_type", "NEW")
 
             val urlString = urlBuilder.build().toString()
 
