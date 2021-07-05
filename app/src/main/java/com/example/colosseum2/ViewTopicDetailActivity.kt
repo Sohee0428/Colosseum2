@@ -20,6 +20,10 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        voteFirstSideBtn.setOnClickListener {
+
+        }
     }
 
     override fun setValues() {
