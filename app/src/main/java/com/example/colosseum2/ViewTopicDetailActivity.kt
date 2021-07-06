@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.colosseum2.adapters.ReplyAdapter
 import com.example.colosseum2.datas.Reply
+import com.example.colosseum2.datas.Side
 import com.example.colosseum2.datas.Topic
 import com.example.colosseum2.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
@@ -17,6 +18,8 @@ class ViewTopicDetailActivity : BaseActivity() {
     val mReplyList = ArrayList<Reply>()
 
     lateinit var mReplyAdapter : ReplyAdapter
+
+    var mySelectedSide : Side? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
