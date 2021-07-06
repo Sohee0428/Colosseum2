@@ -9,6 +9,8 @@ class Reply {
 
     lateinit var selectedSide : Side
 
+    var writerNickname = ""
+
     companion object {
 
         fun getReplyFromJson(jsonObj : JSONObject) : Reply {
@@ -22,6 +24,9 @@ class Reply {
 //            resultReply.selectedSide = jsonObj.getJSONObject("selected_side")
 
             resultReply.selectedSide = Side.getSideFromJson(jsonObj.getJSONObject("selected_side"))
+
+            resultReply.writerNickname = jsonObj.getJSONObject("user").getString("nick_name")
+
 
             return resultReply
         }

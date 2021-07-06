@@ -37,6 +37,10 @@ class ReplyAdapter(val mContext: Context, resId: Int, val mList: List<Reply>) : 
 
         contentTxt.text = data.content
 
+        selectedSideTxt.text = "(${data.selectedSide.title})"
+
+        userNicknameTxt.text = data.writerNickname
+
         return row
     }
 }
