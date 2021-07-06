@@ -82,6 +82,12 @@ class ViewTopicDetailActivity : BaseActivity() {
         getTopicDetailFromServer()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        getTopicDetailFromServer()
+    }
+
     fun getTopicDetailFromServer() {
 
         ServerUtil.getRequestTopicDetail(mContext, mTopic.id, object : ServerUtil.Companion.JsonResponseHandler{
