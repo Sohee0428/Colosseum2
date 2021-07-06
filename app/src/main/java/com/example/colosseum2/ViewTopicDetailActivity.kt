@@ -1,7 +1,9 @@
 package com.example.colosseum2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.colosseum2.adapters.ReplyAdapter
 import com.example.colosseum2.datas.Reply
@@ -48,6 +50,21 @@ class ViewTopicDetailActivity : BaseActivity() {
                     getTopicDetailFromServer()
                 }
             })
+        }
+
+        writeReplyBtn.setOnClickListener {
+
+            if(mySelectedSide == null) {
+
+                Toast.makeText(mContext, "투표를 한 후에만 의견 등록을 할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
+
+                val  myIntent = Intent(mContext, EditReplyActivity::class.java)
+                myIntent.putExtra("mySide", mySelectedSide)
+                startActivity(myIntent)
+
+            }
         }
     }
 
