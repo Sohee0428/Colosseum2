@@ -88,6 +88,15 @@ class ViewTopicDetailActivity : BaseActivity() {
                     mReplyList.add(reply)
                 }
 
+                mySelectedSide = null
+
+                if(!topicObj.isNull("my_side")) {
+
+                    val mySideObj = topicObj.getJSONObject("my_side")
+                    val mySide = Side.getSideFromJson(mySideObj)
+                    mySelectedSide = mySide
+                }
+
                 runOnUiThread {
                     firstSideVoteTxt.text = mTopic.sides[0].title
                     firstSideVoteTxt.text =  "${mTopic.sides[0].voteCount}표"
