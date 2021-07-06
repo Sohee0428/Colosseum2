@@ -7,6 +7,7 @@ class Reply {
     var id = 0
     var content = ""
 
+    lateinit var selectedSide : Side
 
     companion object {
 
@@ -15,6 +16,12 @@ class Reply {
 
             resultReply.id = jsonObj.getInt("id")
             resultReply.content = jsonObj.getString("content")
+
+
+//            아래는 둘이 타입이 달라서 불가능 Side = JSON
+//            resultReply.selectedSide = jsonObj.getJSONObject("selected_side")
+
+            resultReply.selectedSide = Side.getSideFromJson(jsonObj.getJSONObject("selected_side"))
 
             return resultReply
         }
