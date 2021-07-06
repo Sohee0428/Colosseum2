@@ -294,8 +294,8 @@ class ServerUtil() {
 
 //        POST 방식 => 파라미터를 폼데이터(폼바디)에 담아주자
             val formData = FormBody.Builder()
-                .add("side_id", topicId.toString())
-                .add("content", content.toString())
+                .add("topic_id", topicId.toString())
+                .add("content", content)
                 .build()
 
 //        어디, 어떻게, 무엇을 들고갈지
