@@ -80,17 +80,15 @@ class ReplyAdapter(val mContext: Context, resId: Int, val mList: List<Reply>) : 
 
                 }
             })
+        }
 
+        dislikeCountBtn.setOnClickListener {
             ServerUtil.postRequestLikeOrDislike(mContext, data.id, false, object : ServerUtil.Companion.JsonResponseHandler{
                 override fun onResponse(jsonObj: JSONObject) {
 
                 }
 
             })
-        }
-
-        dislikeCountBtn.setOnClickListener {
-
         }
 
         return row
