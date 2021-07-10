@@ -73,76 +73,80 @@ class ReplyAdapter(val mContext: Context, resId: Int, val mList: List<Reply>) : 
         }
 
         likeCountBtn.setOnClickListener {
-            ServerUtil.postRequestLikeOrDislike(mContext, data.id, true, object : ServerUtil.Companion.JsonResponseHandler{
-                override fun onResponse(jsonObj: JSONObject) {
-                    if (jsonObj.has("data")) {
-                        val likeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getString("like_count")
-                        val disLikeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getString("dislike_count")
-                        val isCheck = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getBoolean("my_like")
-
-                        Handler(Looper.getMainLooper()).post() {
-                            likeCountBtn.text = "좋아요 ${likeCount}개"
-                            dislikeCountBtn.text = "싫어요 ${disLikeCount}개"
-                        }
-
-                        if (isCheck) {
-                            likeCountBtn.setBackgroundResource(R.drawable.red_border_box)
-                            likeCountBtn.setTextColor(Color.parseColor("#ff0000"))
-
-                            dislikeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
-                            dislikeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
-                        } else {
-                            likeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
-                            likeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
-                        }
-                    } else {
-                        Handler(Looper.getMainLooper()).post() {
-                            Toast.makeText(mContext, "서버와 통신이 불안정합니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            })
+            likeUpdate(data, true, likeCountBtn, dislikeCountBtn)
         }
 
         dislikeCountBtn.setOnClickListener {
-            ServerUtil.postRequestLikeOrDislike(mContext, data.id, false, object : ServerUtil.Companion.JsonResponseHandler {
-                override fun onResponse(jsonObj: JSONObject) {
-                    if (jsonObj.has("data")) {
-                        val likeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getString("like_count")
-                        val disLikeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getString("dislike_count")
-
-                        val isCheck = jsonObj.getJSONObject("data").getJSONObject("reply")
-                                .getBoolean("my_dislike")
-
-                        Handler(Looper.getMainLooper()).post() {
-                            likeCountBtn.text = "좋아요 ${likeCount}개"
-                            dislikeCountBtn.text = "싫어요 ${disLikeCount}개"
-                        }
-
-                        if (isCheck) {
-                            dislikeCountBtn.setBackgroundResource(R.drawable.blue_border_box)
-                            dislikeCountBtn.setTextColor(Color.parseColor("#0000ff"))
-
-                            likeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
-                            likeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
-                        } else {
-                            dislikeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
-                            dislikeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
-                        }
-                    } else {
-                        Handler(Looper.getMainLooper()).post() {
-                            Toast.makeText(mContext, "서버와 통신이 불안정합니다.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            })
+            likeUpdate(data, false, likeCountBtn, dislikeCountBtn)
         }
 
         return row
+    }
+
+    private fun likeButtonOn(likeCountBtn: TextView) {
+        likeCountBtn.setBackgroundResource(R.drawable.red_border_box)
+        likeCountBtn.setTextColor(Color.parseColor("#ff0000"))
+
+    }
+
+    private fun likeButtonOff(likeCountBtn: TextView) {
+        likeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+        likeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
+    }
+
+    private fun disLikeButtonOn(dislikeCountBtn: TextView) {
+        dislikeCountBtn.setBackgroundResource(R.drawable.blue_border_box)
+        dislikeCountBtn.setTextColor(Color.parseColor("#ff0000"))
+
+    }
+
+    private fun disLikeButtonOff(dislikeCountBtn: TextView) {
+        dislikeCountBtn.setBackgroundResource(R.drawable.gray_border_box)
+        dislikeCountBtn.setTextColor(Color.parseColor("#a0a0a0"))
+    }
+
+    private fun likeUpdate(data:Reply, isLike: Boolean, likeCountBtn: TextView, dislikeCountBtn: TextView) {
+        ServerUtil.postRequestLikeOrDislike(mContext, data.id, isLike, object : ServerUtil.Companion.JsonResponseHandler{
+            override fun onResponse(jsonObj: JSONObject) {
+                if (jsonObj.has("data")) {
+                    val likeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
+                            .getString("like_count")
+                    val disLikeCount = jsonObj.getJSONObject("data").getJSONObject("reply")
+                            .getString("dislike_count")
+                    val isLikeCheck = jsonObj.getJSONObject("data").getJSONObject("reply")
+                            .getBoolean("my_like")
+                    val isDisLikeCheck = jsonObj.getJSONObject("data").getJSONObject("reply")
+                            .getBoolean("my_dislike")
+
+                    Handler(Looper.getMainLooper()).post() {
+                        likeCountBtn.text = "좋아요 ${likeCount}개"
+                        dislikeCountBtn.text = "싫어요 ${disLikeCount}개"
+                    }
+
+                    if (isLike) {
+                        if (isLikeCheck) {
+                            likeButtonOn(likeCountBtn)
+                            disLikeButtonOff(dislikeCountBtn)
+                        } else {
+                            likeButtonOff(likeCountBtn)
+                            disLikeButtonOff(dislikeCountBtn)
+                        }
+                    } else {
+                        if (isDisLikeCheck) {
+                            disLikeButtonOn(dislikeCountBtn)
+                            likeButtonOff(likeCountBtn)
+                        } else {
+                            likeButtonOff(likeCountBtn)
+                            disLikeButtonOff(dislikeCountBtn)
+                        }
+                    }
+                } else {
+                    Handler(Looper.getMainLooper()).post() {
+                        Toast.makeText(mContext, "서버와 통신이 불안정합니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+
     }
 }
