@@ -3,10 +3,13 @@ package com.example.colosseum2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.colosseum2.adapters.TopicAdapter
 import com.example.colosseum2.datas.Topic
 import com.example.colosseum2.utils.ServerUtil
+import com.google.firebase.iid.FirebaseInstanceIdReceiver
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
@@ -21,6 +24,10 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         setupEvents()
         setValues()
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.d("디바이스 토큰 >>> ", it)
+        }
     }
 
     override fun setupEvents() {
