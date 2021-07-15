@@ -3,6 +3,7 @@ package com.example.colosseum2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.colosseum2.adapters.TopicAdapter
 import com.example.colosseum2.datas.Topic
 import com.example.colosseum2.utils.ServerUtil
@@ -40,6 +41,8 @@ class MainActivity : BaseActivity() {
 
         mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
         topicListView.adapter = mTopicAdapter
+
+        backBtn.visibility = View.GONE
     }
 
     fun getTopicListFromServer(){
